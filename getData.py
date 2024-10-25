@@ -22,22 +22,22 @@ try:
     db = dbClient["firstCRM"]
 
 
-    # def getUserData(name):
-    #     theCollection = db["UserData"]
-    #     if(name == "All"):
-    #         userList = list(theCollection.find({},{"_id": 0}))
-    #         return userList
-    #     else:
-    #         return theCollection.find({"firstName":name},{"_id": 0})
+    def getUserData(name):
+        theCollection = db["UserData"]
+        if(name == "All"):
+            userList = list(theCollection.find({},{"_id": 0}))
+            return userList
+        else:
+            return theCollection.find({"firstName":name},{"_id": 0})
         
         
-    # def getOppData(name):
-    #     theCollection = db["OpportunityData"]
-    #     if(name == "All"):
-    #         userList = list(theCollection.find({},{"_id": 0}))
-    #         return userList
-    #     else:
-    #         return theCollection.find({"firstName":name},{"_id": 0})
+    def getOppData(name):
+        theCollection = db["OpportunityData"]
+        if(name == "All"):
+            userList = list(theCollection.find({},{"_id": 0}))
+            return userList
+        else:
+            return theCollection.find({"firstName":name},{"_id": 0})
 
 
     # if(type == "UserData"):
