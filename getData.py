@@ -1,21 +1,21 @@
 try:
     print("herehere")
-    # import json
-    # import string
-    # import sys
-    # import time
-    # import pymongo
-    # from pymongo.mongo_client import MongoClient
-    # from pymongo.server_api import ServerApi
+    import json
+    import string
+    import sys
+    import time
+    import pymongo
+    from pymongo.mongo_client import MongoClient
+    from pymongo.server_api import ServerApi
 
-    # try:
-    #     Received = json.loads(sys.stdin.read())
-    #     type = Received['dataType']
-    #     resourceID = Received['ID']
+    try:
+        Received = json.loads(sys.stdin.read())
+        type = Received['dataType']
+        resourceID = Received['ID']
         
-    #     # print(Received)
-    # except Exception as e:
-    #     print(e)
+        # print(Received)
+    except Exception as e:
+        print(e)
 
     # uri = "mongodb+srv://amoeezkhan01:RKlVkCAZ5Ao4zcDl@myfirstcrm.b3uax.mongodb.net/?retryWrites=true&w=majority&appName=myFirstCRM"
     # dbClient = MongoClient(uri, server_api=ServerApi('1'))
