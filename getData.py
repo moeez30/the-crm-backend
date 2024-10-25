@@ -1,5 +1,4 @@
 try:
-    print("herehere")
     import json
     import string
     import sys
