@@ -52,6 +52,25 @@ app.get('/status',(req,res) => {
 })
 
 
+function getData() {
+    return new Promise((res,rej) => {    
+  
+        const pyScript = spawn('python',['getData.py']);
+  
+        let data = 'portcap';
+          // console.log(pyScript)
+        pyScript.stdout.on('data', (chunk) => {
+            data += chunk.toString();
+        });
+  
+        pyScript.on('close', (code) => {
+            res(console.log(data, "onClose"))
+        });
+  
+    })
+  
+  }
+
 app.post('/getData', (req , res) =>{
     
     const postBody = req.body
