@@ -54,7 +54,7 @@ app.post('/getData', (req , res) =>{
     
     const postBody = req.body
     console.log(JSON.stringify(postBody))
-    const pyScript = spawn('python',['.\\pyscripts\\getData.py']);
+    const pyScript = spawn('python',['getData.py']);
     pyScript.stdin.write(JSON.stringify(postBody));
     pyScript.stdin.end();
 
