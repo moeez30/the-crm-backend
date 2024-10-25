@@ -1,6 +1,6 @@
 // routes/auth.js
 import express from 'express';
-import bcrypt from 'bcrypt';
+import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
@@ -18,8 +18,8 @@ router.post('/signup', async (req, res) => {
         }
 
         // Hash password
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
+        const salt = await bcryptjs.genSalt(10);
+        const hashedPassword = await bcryptjs.hash(password, salt);
 
         // Create new user
         const user = new User({
@@ -58,7 +58,7 @@ router.post('/login', async (req, res) => {
         }
 
         // Check password
-        const isValidPassword = await bcrypt.compare(password, user.password);
+        const isValidPassword = await bcryptjs.compare(password, user.password);
         if (!isValidPassword) {
             return res.status(401).json({ error: 'Invalid credentials' });
         }
