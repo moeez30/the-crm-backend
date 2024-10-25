@@ -17,9 +17,9 @@ try:
     except Exception as e:
         print(e)
 
-    # uri = "mongodb+srv://amoeezkhan01:RKlVkCAZ5Ao4zcDl@myfirstcrm.b3uax.mongodb.net/?retryWrites=true&w=majority&appName=myFirstCRM"
-    # dbClient = MongoClient(uri, server_api=ServerApi('1'))
-    # db = dbClient["firstCRM"]
+    uri = "mongodb+srv://amoeezkhan01:RKlVkCAZ5Ao4zcDl@myfirstcrm.b3uax.mongodb.net/?retryWrites=true&w=majority&appName=myFirstCRM"
+    dbClient = MongoClient(uri, server_api=ServerApi('1'))
+    db = dbClient["firstCRM"]
 
 
     # def getUserData(name):
