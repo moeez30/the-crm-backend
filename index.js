@@ -27,21 +27,22 @@ connectDB();
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+//app.use(cors());
+const corsOrigins =   {
+    origin: ['http://localhost:3000', "https://www.weshippinsuite.com"]
+  };
+  
+  app.all('*', function(req, res, next) {
+    const origin = corsOrigins.origin.includes(req.headers.origin) ? req.headers.origin : 'https://moeez30.github.io';
+    res.header("Access-Control-Allow-Origin", origin);
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
+    next();
+  })
 // Routes
 app.use('/api/auth', authRoutes);
 
-// const corsOrigins =   {
-//   origin: ['http://localhost:3000']
-// };
 
-// app.all('*', function(req, res, next) {
-//   const origin = corsOrigins.origin.includes(req.headers.origin) ? req.headers.origin : 'https://moeez30.github.io';
-//   res.header("Access-Control-Allow-Origin", origin);
-//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//   res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
-//   next();
-// })
 
 
 app.get('/status',(req,res) => {
