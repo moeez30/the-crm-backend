@@ -33,7 +33,7 @@ const corsOrigins =   {
   };
   
   app.all('*', function(req, res, next) {
-    const origin = corsOrigins.origin.includes(req.headers.origin) ? req.headers.origin : 'https://moeez30.github.io';
+    const origin = corsOrigins.origin.includes(req.headers.origin) ? req.headers.origin : 'http://localhost:3000';
     res.header("Access-Control-Allow-Origin", origin);
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
