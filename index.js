@@ -97,7 +97,7 @@ app.post('/CreateUser', (req , res) =>{
     //console.log(__dirname);
     console.log(JSON.stringify(postBody))
     //const scriptPath = path.join(path.__dirname, 'pyscripts', 'createNewUser.py');
-    const pyScript = spawn('python',[".\\pyscripts\\createNewUser.py"]);
+    const pyScript = spawn('python',["createNewUser.py"]);
 
     pyScript.stdin.write(JSON.stringify(postBody));
     pyScript.stdin.end();
@@ -122,7 +122,7 @@ app.post('/CreateOpportunity', (req , res) =>{
   //console.log(__dirname);
   console.log(JSON.stringify(postBody))
   //const scriptPath = path.join(path.__dirname, 'pyscripts', 'createNewUser.py');
-  const pyScript = spawn('python',[".\\pyscripts\\createNewOpp.py"]);
+  const pyScript = spawn('python',["createNewOpp.py"]);
 
   pyScript.stdin.write(JSON.stringify(postBody));
   pyScript.stdin.end();
