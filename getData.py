@@ -40,20 +40,20 @@ try:
             return theCollection.find({"firstName":name},{"_id": 0})
 
 
-    # if(type == "UserData"):
-    #     theData = getUserData(resourceID)
-    #     # print(theData)
-    #     try:
-    #         sys.stdout.write(json.dumps(theData))
-    #     except Exception as e:
-    #         print(e)
-    # elif(type == "OppData"):
-    #     theData = getOppData(resourceID)
-    #     # print(theData)
-    #     try:
-    #         sys.stdout.write(json.dumps(theData))
-    #     except Exception as e:
-    #         print(e)
+    if(type == "UserData"):
+        theData = getUserData(resourceID)
+        # print(theData)
+        try:
+            sys.stdout.write(json.dumps(theData))
+        except Exception as e:
+            print(e)
+    elif(type == "OppData"):
+        theData = getOppData(resourceID)
+        # print(theData)
+        try:
+            sys.stdout.write(json.dumps(theData))
+        except Exception as e:
+            print(e)
 
 except Exception as e:
     print(e)
