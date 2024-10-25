@@ -36,7 +36,7 @@ const corsOrigins =   {
     const origin = corsOrigins.origin.includes(req.headers.origin) ? req.headers.origin : 'http://localhost:3000';
     res.header("Access-Control-Allow-Origin", origin);
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
+    res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT", "OPTIONS");
     next();
   })
 // Routes
