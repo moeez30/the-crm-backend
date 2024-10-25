@@ -40,6 +40,7 @@ const corsOrigins =   {
     next();
   })
 // Routes
+app.options('*', cors());
 
 app.use('/api/auth', authRoutes);
 
