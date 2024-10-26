@@ -1,6 +1,12 @@
 
-declare interface newDataType {}
+declare interface corsOptionsType {
+	static origin: (string | any)[];
 
-declare interface newDataType {
-	static id: any;
+	static methods: (string | any)[];
+
+	static allowedHeaders: (string | any)[];
+
+	static credentials: any;
+
+	static maxAge: any;
 }

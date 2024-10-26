@@ -27,22 +27,25 @@ connectDB();
 
 // Middleware
 
-//app.use('*',cors());
-app.use(cors({
-    origin: ['http://localhost:3000', 'https://www.weshippinsuite.com/'],
+const corsOptions = {
+    origin: [
+      'https://www.weshippinsuite.com',
+      // Include any other domains that need access
+      'http://localhost:3000'  // for local development
+    ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true,
-    maxAge: 86400 // cache preflight request for 24 hours
-  }));
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+    credentials: true,  // Enable if using cookies/sessions
+    maxAge: 86400  // Cache preflight request results for 24 hours
+  };
+
+app.use(cors(corsOptions));
   
 // Routes
 app.use(express.json());
 //app.options('*', cors());
 
 app.use('/api/auth', authRoutes);
-
-
 
 
 app.get('/status',(req,res) => {
