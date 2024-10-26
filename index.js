@@ -20,29 +20,33 @@ const app = express();
 
 app.use(urlencoded({ extended: true }));
 app.use(json());
+app.use(express.json());
 app.use(morgan('dev'));
 
 // Connect to MongoDB
 connectDB();
 
-// Middleware
-
-const corsOptions = {
-    origin: [
-      'https://www.weshippinsuite.com',
-      // Include any other domains that need access
-      'http://localhost:3000'  // for local development
-    ],
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
-    credentials: true,  // Enable if using cookies/sessions
-    maxAge: 86400  // Cache preflight request results for 24 hours
+const corsOrigins =   {
+    origin: ['http://localhost:3000', 'https://www.weshippinsuite.com']
   };
 
-app.use(cors(corsOptions));
-  
+app.use((req, res, next) => {
+    const origin = corsOrigins.origin.includes(req.headers.origin) ? req.headers.origin : 'https://www.weshippinsuite.com';
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    
+    // Handle preflight requests
+    if (req.method === 'OPTIONS') {
+      return res.status(200).end();
+    }
+    next();
+  });
+
+// Middleware
+
 // Routes
-app.use(express.json());
 //app.options('*', cors());
 
 app.use('/api/auth', authRoutes);
