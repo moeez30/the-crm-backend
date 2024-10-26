@@ -28,17 +28,14 @@ connectDB();
 // Middleware
 
 //app.use('*',cors());
-const corsOrigins =   {
-    origin: ['http://localhost:3000', "https://www.weshippinsuite.com"]
-  };
+app.use(cors({
+    origin: ['http://localhost:3000', 'https://www.weshippinsuite.com/'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+    maxAge: 86400 // cache preflight request for 24 hours
+  }));
   
-   app.all('*', function(req, res, next) {
-    const origin = corsOrigins.origin.includes(req.headers.origin) ? req.headers.origin : 'https://www.weshippinsuite.com';
-    res.header("Access-Control-Allow-Origin", origin);
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT", "OPTIONS");
-    next();
-  })
 // Routes
 app.use(express.json());
 //app.options('*', cors());
