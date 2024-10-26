@@ -6,6 +6,7 @@ try:
     import pymongo
     from pymongo.mongo_client import MongoClient
     from pymongo.server_api import ServerApi
+    from config import Config
 
     try:
         Received = json.loads(sys.stdin.read())
@@ -16,8 +17,7 @@ try:
     except Exception as e:
         print(e)
 
-    uri = "mongodb+srv://amoeezkhan01:RKlVkCAZ5Ao4zcDl@myfirstcrm.b3uax.mongodb.net/?retryWrites=true&w=majority&appName=myFirstCRM"
-    dbClient = MongoClient(uri, server_api=ServerApi('1'))
+    dbClient = MongoClient(Config.get_mongodb_uri())
     db = dbClient["firstCRM"]
 
 
