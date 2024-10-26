@@ -26,8 +26,8 @@ app.use(morgan('dev'));
 connectDB();
 
 // Middleware
-app.use(express.json());
-app.use('*',cors());
+
+//app.use('*',cors());
 const corsOrigins =   {
     origin: ['http://localhost:3000', "https://www.weshippinsuite.com"]
   };
@@ -40,7 +40,8 @@ const corsOrigins =   {
     next();
   })
 // Routes
-app.options('*', cors());
+app.use(express.json());
+//app.options('*', cors());
 
 app.use('/api/auth', authRoutes);
 
