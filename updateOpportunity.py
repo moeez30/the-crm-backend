@@ -6,7 +6,7 @@ from config import Config
 
 try:
     Received = json.loads(sys.stdin.read())
-    print(Received)
+    #print(Received)
 except Exception as e:
     print(e)
 
@@ -15,8 +15,17 @@ dbClient = MongoClient(Config.get_mongodb_uri())
 # Send a ping to confirm a successful connection
 try:
     db = dbClient["firstCRM"]
-    collection = db["UserData"]
-    myData = Received
-    collection.insert_one(myData)
+    collection = db["OpportunityData"]
+    theID = (Received["theID"])
+    oppData = Received["theOpportunities"]
+    opptoUpdate = {}
+    for opp in oppData:
+        if(theID == opp['id']):
+            opptoUpdate = opp
+    # print(myData)
+    filter = {'id' : theID}
+    # print(filter)
+    # print(opptoUpdate)
+    collection.replace_one(filter,opptoUpdate)
 except Exception as e:
     print(e)
