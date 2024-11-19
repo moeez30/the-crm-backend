@@ -19,10 +19,15 @@ try:
     theID = (Received["theID"])
     oppData = Received["theOpportunities"]
     opptoUpdate = {}
-    for opp in oppData:
-        if(theID == opp['id']):
-            opptoUpdate = opp
-    # print(myData)
+    
+    if(type(oppData) == dict):
+        opptoUpdate = oppData
+    else:
+        for opp in oppData:
+            if(theID == opp['id']):
+                opptoUpdate = opp
+        # print(myData)
+        
     filter = {'id' : theID}
     # print(filter)
     # print(opptoUpdate)
