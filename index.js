@@ -145,6 +145,30 @@ app.post('/CreateOpportunity', (req , res) =>{
   });
 })
 
+app.post('/CreateExpense', (req , res) =>{
+
+    const postBody = req.body
+    //console.log(__dirname);
+    console.log(JSON.stringify(postBody))
+    //const scriptPath = path.join(path.__dirname, 'pyscripts', 'createNewUser.py');
+    const pyScript = spawn('python',["createNewExpense.py"]);
+  
+    pyScript.stdin.write(JSON.stringify(postBody));
+    pyScript.stdin.end();
+  
+    let data = '';
+  
+    pyScript.stdout.on('data', (chunk) => {
+        data += chunk.toString();
+    });
+  
+    console.log(data)
+  
+    pyScript.on('close', (code) => {
+        res.status(200).json({ 'data': data, message: 'hellohere' });
+    });
+  })
+
 app.post('/updateOpportunityData', (req , res) =>{
 
     const postBody = req.body

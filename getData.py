@@ -37,6 +37,14 @@ try:
             return userList
         else:
             return theCollection.find({"firstName":name},{"_id": 0})
+        
+    def getExpensesData(name):
+        theCollection = db["ExpensesData"]
+        if(name == "All"):
+            userList = list(theCollection.find({},{"_id": 0}))
+            return userList
+        else:
+            return theCollection.find({"firstName":name},{"_id": 0})
 
 
     if(type == "UserData"):
@@ -48,6 +56,13 @@ try:
             print(e)
     elif(type == "OppData"):
         theData = getOppData(resourceID)
+        # print(theData)
+        try:
+            sys.stdout.write(json.dumps(theData))
+        except Exception as e:
+            print(e)
+    elif(type == "ExpensesData"):
+        theData = getExpensesData(resourceID)
         # print(theData)
         try:
             sys.stdout.write(json.dumps(theData))
