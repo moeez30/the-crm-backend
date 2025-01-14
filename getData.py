@@ -13,7 +13,7 @@ try:
         type = Received['dataType']
         resourceID = Received['ID']
         
-        # print(Received)
+        #print(Received)
     except Exception as e:
         print(e)
 
@@ -46,6 +46,13 @@ try:
         else:
             return theCollection.find({"firstName":name},{"_id": 0})
 
+    def getEdittingPermission(name):
+        theCollection = db["EdittingPermission"]
+        if(name == "All"):
+            editPermission = (theCollection.find_one({},{"_id": 0}))
+            return editPermission
+        else:
+            return bool(theCollection.find({"permission":name},{"_id": 0}))
 
     if(type == "UserData"):
         theData = getUserData(resourceID)
@@ -64,6 +71,13 @@ try:
     elif(type == "ExpensesData"):
         theData = getExpensesData(resourceID)
         # print(theData)
+        try:
+            sys.stdout.write(json.dumps(theData))
+        except Exception as e:
+            print(e)
+    elif(type == "editPermission"):
+        theData = getEdittingPermission(resourceID)
+        #print(theData)
         try:
             sys.stdout.write(json.dumps(theData))
         except Exception as e:

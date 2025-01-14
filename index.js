@@ -10,6 +10,8 @@ import moment from 'moment-timezone';
 import dotenv from 'dotenv';
 import connectDB from './config/database.js';
 import authRoutes from './routes/auth.js';
+import activityRoutes from './routes/activityRoutes.js';
+import logActivity from './middleware/activityLogger.js';
 
 const path = 'path';
 const { urlencoded, json } = pkg;
@@ -50,6 +52,7 @@ app.use((req, res, next) => {
 //app.options('*', cors());
 
 app.use('/api/auth', authRoutes);
+app.use('/api/admin', activityRoutes);
 
 
 app.get('/status',(req,res) => {
@@ -79,7 +82,7 @@ function getData() {
 app.post('/getData', (req , res) =>{
     
     const postBody = req.body
-    console.log(JSON.stringify(postBody))
+    // console.log(JSON.stringify(postBody))
     const pyScript = spawn('python',['getData.py']);
     pyScript.stdin.write(JSON.stringify(postBody));
     pyScript.stdin.end();
@@ -87,16 +90,21 @@ app.post('/getData', (req , res) =>{
     let data = '';
     pyScript.stdout.on('data', (chunk) => {
         data += chunk.toString();
+        //console.log(chunk.toString());
     });
+
+    //console.log(data)
     
     pyScript.on('close', (code) => {
-        console.log(data)
+        //console.log(data)
         res.status(200).json({ 'data': data, message: 'hellohere' });
     });
 
 });
 
 app.post('/CreateUser', (req , res) =>{
+
+    logActivity(req,req.body.theUser,"CREATE_USER",`ID : ${req.body.id}`);
 
     const postBody = req.body
     //console.log(__dirname);
@@ -120,8 +128,37 @@ app.post('/CreateUser', (req , res) =>{
     });
 })
 
+app.post('/editingPermission', (req , res) =>{
+
+    console.log(req.body)
+    logActivity(req,req.body.user,"EDIT_PERMISSIONS",(req.body.editing)?"Editing Enabled":"Editing Disabled");
+
+    const postBody = req.body
+    //console.log(__dirname);
+    console.log(JSON.stringify(postBody))
+    //const scriptPath = path.join(path.__dirname, 'pyscripts', 'createNewUser.py');
+    const pyScript = spawn('python',["editingPermissionUpdate.py"]);
+
+    pyScript.stdin.write(JSON.stringify(postBody));
+    pyScript.stdin.end();
+
+    let data = '';
+
+    pyScript.stdout.on('data', (chunk) => {
+        data += chunk.toString();
+    });
+
+    console.log(data)
+
+    pyScript.on('close', (code) => {
+        res.status(200).json({ 'data': data, message: 'hellohere' });
+    });
+})
+
 
 app.post('/CreateOpportunity', (req , res) =>{
+
+  logActivity(req,req.body.theUser,"CREATE_OPPORTUNITY",`ID : ${req.body.id}`);
 
   const postBody = req.body
   //console.log(__dirname);
@@ -147,6 +184,8 @@ app.post('/CreateOpportunity', (req , res) =>{
 
 app.post('/CreateExpense', (req , res) =>{
 
+    logActivity(req,req.body.theUser,"CREATE_EXPENSE",`ID : ${req.body.id}`);
+
     const postBody = req.body
     //console.log(__dirname);
     console.log(JSON.stringify(postBody))
@@ -170,6 +209,8 @@ app.post('/CreateExpense', (req , res) =>{
   })
 
 app.post('/updateOpportunityData', (req , res) =>{
+
+    logActivity(req,req.body.theUser,"UPDATE_OPPORTUNITY",`ID : ${req.body.theID}`)
 
     const postBody = req.body
     //console.log(__dirname);
@@ -195,6 +236,8 @@ app.post('/updateOpportunityData', (req , res) =>{
 
 
   app.post('/updateUserData', (req , res) =>{
+
+    logActivity(req,req.body.user,"UPDATE_USER",`ID : ${req.body.theID}`)
 
     const postBody = req.body
     //console.log(__dirname);
