@@ -210,7 +210,7 @@ app.post('/CreateExpense', (req , res) =>{
 
 app.post('/updateOpportunityData', (req , res) =>{
 
-    logActivity(req,req.body.theUser,"UPDATE_OPPORTUNITY",`ID : ${req.body.theID}`)
+    logActivity(req,req.body.theUser,"UPDATE_OPPORTUNITY",`ID : ${req.body.theID} Action: ${req.body.action}`)
 
     const postBody = req.body
     //console.log(__dirname);
